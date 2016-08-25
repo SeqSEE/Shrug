@@ -1,5 +1,5 @@
 ### Shrug
 
-           ¯\_(^_^)_/¯
+           ¯\_(⌯_⌯)_/¯
            
            Shrug is a Java game.
