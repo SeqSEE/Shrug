@@ -17,6 +17,10 @@ out
 Shrug/src.zip
 Shrug/doc/*
 Shrug/lib/*
+Shrug/lic/*
+Shrug/native/*
+Shrug/jars/*
+
 
 # other
 .recommenders/*
