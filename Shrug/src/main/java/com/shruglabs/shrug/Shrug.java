@@ -14,57 +14,41 @@ public class Shrug {
 
 	private ShrugServer server;
 	private ShrugClient client;
-	public static  Shrug shrug; 
-	
-	public static void main(String[] args){
+	public static Shrug shrug;
+
+	public static void main(String[] args) {
 		shrug = new Shrug();
 		shrug.startClient(null);
-		
-		
-		
-		
-		
-		
-	}
-	
-    public void startServer(@Nullable String args) {
-    	if(args == null){
-		System.out.println("shrug$ Initializing Integrated Server");
-    	shrug.setServer(new ShrugServer());
-    	shrug.getServer().setPort(37756);
-		System.out.println("shrug$ Done!");
-    	}
+
 	}
 
-	public boolean startClient(@Nullable String args) {
-		if(args != null && args.equals("test")){
-			shrug.setClient(new ShrugClient());
-			Thread t = new Thread(shrug.getClient());
-			t.run();
-			t.interrupt();
-			return true;
+	public void startServer(@Nullable String args) {
+		if (args == null) {
+			System.out.println("shrug$ Initializing Integrated Server");
+			shrug.setServer(new ShrugServer());
+			shrug.getServer().setPort(37756);
+			System.out.println("shrug$ Done!");
 		}
-		else{
-			shrug.setClient(new ShrugClient());
-			Thread t = new Thread(shrug.getClient());
-			t.run();
-			return false;
-		}
-		
-		
+	}
+
+	public void startClient(@Nullable String args) {
+		shrug.setClient(new ShrugClient());
+		Thread t = new Thread(shrug.getClient());
+		t.run();
+
 	}
 
 	/*
-	private static void startServer(@Nullable String args) {
-		shrug.setServer(new ShrugServer());
-		new Thread(shrug.getServer()).start();
-		
-	}
-	*/
+	 * private static void startServer(@Nullable String args) {
+	 * shrug.setServer(new ShrugServer()); new
+	 * Thread(shrug.getServer()).start();
+	 * 
+	 * }
+	 */
 
 	private void setClient(ShrugClient shrugClient) {
-		// TODO Auto-generated method stub
-		
+		shrug.client = shrugClient;
+
 	}
 
 	public ShrugServer getServer() {
@@ -78,9 +62,5 @@ public class Shrug {
 	public ShrugClient getClient() {
 		return shrug.client;
 	}
-
-
-
-
 
 }
