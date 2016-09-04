@@ -14,15 +14,14 @@ public class ShrugServer implements Runnable {
 	private static ShrugServer server;
 
 	private Scanner console;
-	private ServerSocket serverSocket;
+	ServerSocket serverSocket;
 	private int port;
 	private boolean serverClose;
-	private int listenCount;
-
 	public void start() {
 		System.out.println("Shrug$ Shrug " + Reference.VER);
 		server.init();
-		server.listen();
+		System.out.println("Shrug$ Listening for a connection");
+		new Thread(new ClientHandler(server, Shrug.class.getProtectionDomain().getCodeSource().getLocation().toString())).run();
 
 	}
 
@@ -52,7 +51,6 @@ public class ShrugServer implements Runnable {
 				server.serverSocket = new ServerSocket(server.port);
 			} catch (IOException e) {
 				System.out.println("Shrug$ Could not listen on port " + server.port);
-				++server.listenCount;
 			}
 
 			if (server.serverSocket != null)
@@ -64,19 +62,10 @@ public class ShrugServer implements Runnable {
 
 	public void listen() {
 		if (!server.serverClose) {
-			while (serverSocket != null) {
+			
 				System.out.println("Shrug$ Listening for a connection");
-				Socket clientSocket = null;
-
-				try {
-					clientSocket = server.serverSocket.accept();
-				} catch (IOException e) {
-					System.out.println("Shrug$Accept failed: " + server.serverSocket.getLocalPort());
-				}
-				new Thread(new ClientHandler(clientSocket,
-						Shrug.class.getProtectionDomain().getCodeSource().getLocation().toString())).run();
-
-			}
+				new Thread(new ClientHandler(server, Shrug.class.getProtectionDomain().getCodeSource().getLocation().toString())).run();
+			
 		}
 	}
 

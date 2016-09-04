@@ -10,18 +10,24 @@ public class ClientHandler implements Runnable {
 
 	protected Socket clientSocket = null;
 	protected String serverText = null;
+	private ShrugServer server;
 	
 
-	public ClientHandler(Socket clientSocket, String serverText) {
-		this.clientSocket = clientSocket;
+	public ClientHandler(ShrugServer server, String serverText) {
+		this.server = server;
 		this.serverText = serverText;
 		
 	}
 
 	public void run() {
 		try {
-			InputStream input = clientSocket.getInputStream();
-			OutputStream output = clientSocket.getOutputStream();
+			this.clientSocket = this.server.serverSocket.accept();
+		} catch (IOException e) {
+			System.out.println("Shrug$Accept failed: " + this.server.serverSocket.getLocalPort());
+		}
+		try {
+			InputStream input = this.clientSocket.getInputStream();
+			OutputStream output = this.clientSocket.getOutputStream();
 			output.write((this.serverText).getBytes());
 			output.close();
 			input.close();

@@ -9,7 +9,7 @@ import com.shruglabs.shrug.Shrug;
 import com.shruglabs.shrug.client.ShrugClient;
 import com.shruglabs.shrug.client.render.gui.MainDialog;
 
-public class KeyboardHandler extends GLFWKeyCallback {
+public class KeyboardHandler extends GLFWKeyCallback{
 
 	public static boolean[] press = new boolean[65536];
 	public static boolean[] repeat = new boolean[65536];
@@ -43,15 +43,15 @@ public class KeyboardHandler extends GLFWKeyCallback {
 	}
 
 	public void keys(KeyboardHandler keyCallback, long window) {
-		if (keyCallback.keyPress(GLFW_KEY_ESCAPE))
+		if (keyCallback.keyPress(GLFW_KEY_ESCAPE)){
 			glfwSetWindowShouldClose(window, true);
-		if (keyCallback.keyPress(GLFW_KEY_F1))
-			Shrug.shrug.startServer(null);;
 			
-		if (keyCallback.keyPress(GLFW_KEY_F2) )
-			Shrug.shrug.getClient().touchServer();
-		if (keyCallback.keyPress(GLFW_KEY_F3)) {
-			MainDialog dialog = new MainDialog();
+		}
+			
+		if (keyCallback.keyPress(GLFW_KEY_F1)){
+			Shrug.shrug.startServer(false);
+		    Shrug.shrug.getClient().touchServer();}
+
 			
 			
 		} 
@@ -61,4 +61,4 @@ public class KeyboardHandler extends GLFWKeyCallback {
 
 	}
 
-}
+
